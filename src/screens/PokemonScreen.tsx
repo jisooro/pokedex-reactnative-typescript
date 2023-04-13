@@ -1,10 +1,12 @@
-import { View, Text, StyleSheet, TouchableOpacity, Image } from 'react-native'
+import { View, Text, StyleSheet, TouchableOpacity, Image, ActivityIndicator } from 'react-native'
 import React from 'react'
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { RootStackParams } from '../navigation/Navigator';
 import Icon from 'react-native-vector-icons/Ionicons';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { FadeInImage } from '../components/FadeInImage';
+import { usePokemon } from '../hooks/usePokemon';
+import PokemonDetails from '../components/PokemonDetails';
 
 interface Props extends NativeStackScreenProps<RootStackParams, 'PokemonScreen'> {};
 
@@ -14,8 +16,10 @@ const PokemonScreen = ( { navigation, route }: Props ) => {
     const { name, id, picture } = simplePokemon;
     const { top } = useSafeAreaInsets();
 
+    const { isLoading, pokemon } = usePokemon( id )
+
     return (
-        <View>
+        <View style = {{ flex: 1 }}>
             <View style = {{ ...styles.headerContainer, backgroundColor: color }}>
                 <TouchableOpacity
                     activeOpacity = { 0.5 }
@@ -49,6 +53,20 @@ const PokemonScreen = ( { navigation, route }: Props ) => {
                     style = { styles.pokemonImage }
                 />
             </View>
+
+            { isLoading ? 
+                (
+                <View style = { styles.loadingIndicator }>
+                    <ActivityIndicator 
+                        color = { color }
+                        size = { 50 }
+                    />
+
+                </View>
+                ) : (
+                <PokemonDetails pokemon = { pokemon }/>
+                )
+            }
         </View>
     ) 
 }
@@ -82,6 +100,12 @@ const styles = StyleSheet.create({
         height: 250,
         position: 'absolute',
         bottom: -15,
+    },
+    loadingIndicator: {
+        alignItems: 'center',
+        height: 200,
+        flex: 1,
+        justifyContent: 'center',
     }
 })
 

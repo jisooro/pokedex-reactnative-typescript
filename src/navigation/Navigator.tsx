@@ -4,8 +4,14 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack'
 // Screens Imports
 import HomeScreen from '../screens/HomeScreen';
 import PokemonScreen from '../screens/PokemonScreen';
+import { SimplePokemon } from '../interfaces/pokemonInterfaces';
 
-const Stack = createNativeStackNavigator();
+export type RootStackParams = {
+	HomeScreen: undefined,
+	PokemonScreen: { simplePokemon: SimplePokemon, color: string },
+}
+
+const Stack = createNativeStackNavigator<RootStackParams>();
 
 const Navigator = () => {
 	return (
@@ -17,8 +23,8 @@ const Navigator = () => {
 				},
 			}}
 		>
-			<Stack.Screen name = 'Home' component = { HomeScreen }/>
-			<Stack.Screen name = 'Pokemon' component = { PokemonScreen }/>
+			<Stack.Screen name = 'HomeScreen' component = { HomeScreen }/>
+			<Stack.Screen name = 'PokemonScreen' component = { PokemonScreen }/>
 		</Stack.Navigator>
 	)
 }

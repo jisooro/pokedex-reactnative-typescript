@@ -9,7 +9,7 @@ const HomeScreen = () => {
 
     const { top } = useSafeAreaInsets();
 
-    const { simplePokemonList, loadPokemons } = usePokemonPagination();
+    const { simplePokemonList, loadPokemons, isLoading } = usePokemonPagination();
 
     return (
         <SafeAreaView style = {{ ...styles.globalMargin, top: top + 20 }}>
@@ -27,7 +27,7 @@ const HomeScreen = () => {
                     showsVerticalScrollIndicator = { false }
                     numColumns = { 2 }
                     renderItem = { ({ item }) => (
-                        <PokemonCard pokemon = { item }/>
+                        <PokemonCard pokemon = { item } isLoading = { isLoading }/>
                     ) }
 
                     ListHeaderComponent = {(

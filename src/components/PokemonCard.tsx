@@ -1,20 +1,69 @@
 import { View, Text, TouchableOpacity, StyleSheet, Dimensions, Image, Button } from 'react-native'
-import React from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { SimplePokemon } from '../interfaces/pokemonInterfaces'
 import { FadeInImage } from './FadeInImage';
+import ImageColors from 'react-native-image-colors';
+import { useNavigation } from '@react-navigation/native';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import { RootStackParams } from '../navigation/Navigator';
 
 const windowWidth = Dimensions.get('window').width
 
 interface Props {
-    pokemon: SimplePokemon;
+    pokemon: SimplePokemon,
+    isLoading: boolean,
 }
 
-const PokemonCard = ({ pokemon }: Props) => {
+const PokemonCard = ({ pokemon, isLoading }: Props) => {
+
+    const [ bgColor, setBgColor ] = useState('gray');
+    const isMounted = useRef(true);
+    const navigation = useNavigation<NativeStackNavigationProp<RootStackParams>>();
+
+    const addBgColor = () => {
+        return ImageColors.getColors( pokemon.picture, { fallback: bgColor })
+    }
+
+    useEffect(() => {
+
+        addBgColor().then( colors => {
+            if (!isMounted.current) return; 
+
+            switch ( colors.platform ) {
+                case 'android':
+                    setBgColor( colors.dominant || bgColor )
+                    break;
+                case 'ios':
+                    setBgColor( colors.background || bgColor )
+                    break;
+                case 'web':
+                    setBgColor( colors.dominant || bgColor )
+                    break;
+                }
+        })
+
+        return () => {
+            isMounted.current = false
+        }
+    }, [])
+    
+
     return (
         <TouchableOpacity
             activeOpacity = { 0.9 }
+            onPress = { 
+                () => navigation.navigate('PokemonScreen', {
+                simplePokemon: pokemon,
+                color: bgColor
+            }) }
         >
-            <View style = {{ ...styles.cardContainer, width: windowWidth * 0.4 }}>
+            <View 
+                style = {{ 
+                    ...styles.cardContainer, 
+                    width: windowWidth * 0.4,
+                    backgroundColor: bgColor 
+                }}
+            >
                 <View>
                     <Text 
                         style = { styles.name } 
@@ -43,7 +92,6 @@ const PokemonCard = ({ pokemon }: Props) => {
 
 const styles = StyleSheet.create({
     cardContainer: {
-        backgroundColor: 'red',
         borderRadius: 10,
         height: 120,
         marginBottom: 25,

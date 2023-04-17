@@ -1,12 +1,11 @@
 import React from 'react'
-import { SafeAreaView } from 'react-native'
 import { NavigationContainer } from '@react-navigation/native';
-import Navigator from './src/navigation/Navigator';
+import { Tabs } from './src/navigation/Tabs';
 
 const App = () => {
 	return (
 		<NavigationContainer>
-			<Navigator/>
+			<Tabs />
 		</NavigationContainer>
 	)
 }

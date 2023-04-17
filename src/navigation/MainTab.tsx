@@ -13,7 +13,7 @@ export type RootStackParams = {
 
 const Stack = createNativeStackNavigator<RootStackParams>();
 
-const Navigator = () => {
+const MainTab = () => {
 	return (
 		<Stack.Navigator
 			screenOptions = {{
@@ -29,4 +29,4 @@ const Navigator = () => {
 	)
 }
 
-export default Navigator
+export default MainTab

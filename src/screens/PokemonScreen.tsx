@@ -1,7 +1,7 @@
 import { View, Text, StyleSheet, TouchableOpacity, Image, ActivityIndicator } from 'react-native'
 import React from 'react'
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
-import { RootStackParams } from '../navigation/Navigator';
+import { RootStackParams } from '../navigation/MainTab';
 import Icon from 'react-native-vector-icons/Ionicons';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { FadeInImage } from '../components/FadeInImage';

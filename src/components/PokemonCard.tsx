@@ -5,16 +5,15 @@ import { FadeInImage } from './FadeInImage';
 import ImageColors from 'react-native-image-colors';
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
-import { RootStackParams } from '../navigation/Navigator';
+import { RootStackParams } from '../navigation/MainTab';
 
 const windowWidth = Dimensions.get('window').width
 
 interface Props {
     pokemon: SimplePokemon,
-    isLoading: boolean,
 }
 
-const PokemonCard = ({ pokemon, isLoading }: Props) => {
+const PokemonCard = ({ pokemon }: Props) => {
 
     const [ bgColor, setBgColor ] = useState('gray');
     const isMounted = useRef(true);

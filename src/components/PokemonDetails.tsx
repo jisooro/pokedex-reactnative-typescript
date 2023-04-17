@@ -150,12 +150,12 @@ const PokemonDetails = ({ pokemon }: Props) => {
             <View
                 style = {{
                     alignItems: 'center',
-                    marginBottom: 20,
+                    marginBottom: 60,
                 }}
             >
                 <FadeInImage
-                    uri={pokemon.sprites.front_default}
-                    style={styles.basicSprite}
+                    uri = { pokemon.sprites.front_default }
+                    style = { styles.basicSprite }
                 />
             </View>
             
@@ -165,7 +165,7 @@ const PokemonDetails = ({ pokemon }: Props) => {
 
 const styles = StyleSheet.create({
     container: {
-        marginHorizontal: 20
+        marginHorizontal: 20,
     },
     title: {
         fontSize: 22,

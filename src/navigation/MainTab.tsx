@@ -5,7 +5,6 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import HomeScreen from '../screens/HomeScreen';
 import PokemonScreen from '../screens/PokemonScreen';
 import { SimplePokemon } from '../interfaces/pokemonInterfaces';
-import TestScreen from '../screens/TestScreen';
 
 export type RootStackParams = {
 	HomeScreen: undefined,
